@@ -1,0 +1,152 @@
+[
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_NEW_YEAR",
+    "payload": {
+      "date": "01/01/2026",
+      "description": "New Year's Day",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "gregorian",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_REPUBLIC_DAY",
+    "payload": {
+      "date": "26/01/2026",
+      "description": "Republic Day",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "gregorian",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_HOLI",
+    "payload": {
+      "date": "14/03/2026",
+      "description": "Holi - Festival of Colors",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "hindu",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_GOOD_FRIDAY",
+    "payload": {
+      "date": "03/04/2026",
+      "description": "Good Friday",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "gregorian",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_EID_UL_FITR",
+    "payload": {
+      "date": "31/03/2026",
+      "description": "Eid ul-Fitr - End of Ramadan",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "islamic",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_INDEPENDENCE_DAY",
+    "payload": {
+      "date": "15/08/2026",
+      "description": "Independence Day",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "gregorian",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_JANMASHTAMI",
+    "payload": {
+      "date": "15/08/2026",
+      "description": "Janmashtami - Birth of Lord Krishna",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "hindu",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_GANDHI_JAYANTI",
+    "payload": {
+      "date": "02/10/2026",
+      "description": "Gandhi Jayanti - Birthday of Mahatma Gandhi",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "gregorian",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_DIWALI",
+    "payload": {
+      "date": "20/10/2026",
+      "description": "Diwali - Festival of Lights",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "hindu",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#EXCEPTION",
+    "id": "EXCEPTION_CHRISTMAS_DAY",
+    "payload": {
+      "date": "25/12/2026",
+      "description": "Christmas Day",
+      "category": "fix holiday",
+      "region": "national",
+      "calendarType": "gregorian",
+      "isGazettedHoliday": true,
+      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  }
+]

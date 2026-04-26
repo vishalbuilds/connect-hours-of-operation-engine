@@ -1,0 +1,172 @@
+[
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-new-year-handler",
+    "payload": {
+      "queueName": "new-year-handler",
+      "description": "Handles scheduling exceptions for New Year's Day",
+      "EXCEPTION#01/01/2026": "EXCEPTION_NEW_YEAR",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "01/01/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-republic-day-handler",
+    "payload": {
+      "queueName": "republic-day-handler",
+      "description": "Handles scheduling exceptions for Republic Day",
+      "EXCEPTION#26/01/2026": "EXCEPTION_REPUBLIC_DAY",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "26/01/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-holi-handler",
+    "payload": {
+      "queueName": "holi-handler",
+      "description": "Handles scheduling exceptions for Holi",
+      "EXCEPTION#14/03/2026": "EXCEPTION_HOLI",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "14/03/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-good-friday-handler",
+    "payload": {
+      "queueName": "good-friday-handler",
+      "description": "Handles scheduling exceptions for Good Friday",
+      "EXCEPTION#03/04/2026": "EXCEPTION_GOOD_FRIDAY",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "03/04/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-eid-ul-fitr-handler",
+    "payload": {
+      "queueName": "eid-ul-fitr-handler",
+      "description": "Handles scheduling exceptions for Eid ul-Fitr",
+      "EXCEPTION#31/03/2026": "EXCEPTION_EID_UL_FITR",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "31/03/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-independence-day-handler",
+    "payload": {
+      "queueName": "independence-day-handler",
+      "description": "Handles scheduling exceptions for Independence Day",
+      "EXCEPTION#15/08/2026": "EXCEPTION_INDEPENDENCE_DAY",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "15/08/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-janmashtami-handler",
+    "payload": {
+      "queueName": "janmashtami-handler",
+      "description": "Handles scheduling exceptions for Janmashtami",
+      "EXCEPTION#15/08/2026": "EXCEPTION_JANMASHTAMI",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "15/08/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-gandhi-jayanti-handler",
+    "payload": {
+      "queueName": "gandhi-jayanti-handler",
+      "description": "Handles scheduling exceptions for Gandhi Jayanti",
+      "EXCEPTION#02/10/2026": "EXCEPTION_GANDHI_JAYANTI",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "02/10/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-diwali-handler",
+    "payload": {
+      "queueName": "diwali-handler",
+      "description": "Handles scheduling exceptions for Diwali",
+      "EXCEPTION#20/10/2026": "EXCEPTION_DIWALI",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "20/10/2027"
+    }
+  },
+  {
+    "exp": "EXP#QUEUE",
+    "id": "arn:aws:sqs:ap-south-1:123456789012:queue-christmas-handler",
+    "payload": {
+      "queueName": "christmas-handler",
+      "description": "Handles scheduling exceptions for Christmas Day",
+      "EXCEPTION#25/12/2026": "EXCEPTION_CHRISTMAS_DAY",
+      "SCHEDULE#SUN": "SCHEDULE_SUNDAY",
+      "SCHEDULE#MON": "SCHEDULE_MONDAY",
+      "SCHEDULE#TUE": "SCHEDULE_TUESDAY",
+      "SCHEDULE#WED": "SCHEDULE_WEDNESDAY",
+      "SCHEDULE#THU": "SCHEDULE_THURSDAY",
+      "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
+      "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
+      "queueExpireDate": "25/12/2027"
+    }
+  }
+]
