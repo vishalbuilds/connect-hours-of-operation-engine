@@ -5,13 +5,17 @@
     "payload": {
       "date": "01/01/2026",
       "description": "New Year's Day",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "gregorian",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "02/01/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of New Year's Day. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -20,13 +24,17 @@
     "payload": {
       "date": "26/01/2026",
       "description": "Republic Day",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "gregorian",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "27/01/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Republic Day. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -35,13 +43,17 @@
     "payload": {
       "date": "14/03/2026",
       "description": "Holi - Festival of Colors",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "hindu",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "15/03/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Holi. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -50,13 +62,17 @@
     "payload": {
       "date": "03/04/2026",
       "description": "Good Friday",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "gregorian",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "04/04/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Good Friday. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -65,13 +81,17 @@
     "payload": {
       "date": "31/03/2026",
       "description": "Eid ul-Fitr - End of Ramadan",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "islamic",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "01/04/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Eid ul-Fitr. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -80,13 +100,17 @@
     "payload": {
       "date": "15/08/2026",
       "description": "Independence Day",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "gregorian",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "16/08/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Independence Day. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -95,13 +119,17 @@
     "payload": {
       "date": "15/08/2026",
       "description": "Janmashtami - Birth of Lord Krishna",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "hindu",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "16/08/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Janmashtami. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -110,13 +138,17 @@
     "payload": {
       "date": "02/10/2026",
       "description": "Gandhi Jayanti - Birthday of Mahatma Gandhi",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "gregorian",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "03/10/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Gandhi Jayanti. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -125,13 +157,17 @@
     "payload": {
       "date": "20/10/2026",
       "description": "Diwali - Festival of Lights",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "hindu",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "21/10/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Diwali. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
   {
@@ -140,13 +176,17 @@
     "payload": {
       "date": "25/12/2026",
       "description": "Christmas Day",
-      "category": "fix holiday",
+      "category": "fixed holiday",
       "region": "national",
       "calendarType": "gregorian",
       "isGazettedHoliday": true,
-      "affectedSchedules": ["SCHEDULE_SUNDAY", "SCHEDULE_MONDAY", "SCHEDULE_TUESDAY", "SCHEDULE_WEDNESDAY", "SCHEDULE_THURSDAY", "SCHEDULE_FRIDAY", "SCHEDULE_SATURDAY"],
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "isOpen": false,
+      "status": "CLOSED",
+      "timezone": "Asia/Kolkata",
+      "startTime": null,
+      "closedTime": null,
+      "exceptionExpiryDate": "26/12/2026",
+      "prompt": "Thank you for calling. Our office is closed today in observance of Christmas Day. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   }
 ]

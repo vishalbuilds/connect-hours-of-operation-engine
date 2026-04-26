@@ -11,14 +11,64 @@
       "openTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
-      "slots": [
-        { "slotId": "SLOT#MON#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
-        { "slotId": "SLOT#MON#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
-        { "slotId": "SLOT#MON#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
-      ],
+      "status": "ACTIVE"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_MONDAY_V2",
+    "payload": {
+      "day": "MON",
+      "dayFull": "Monday",
+      "dayIndex": 1,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "08:00",
+      "closeTime": "19:00",
+      "timezone": "Asia/Kolkata",
       "status": "ACTIVE",
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "variantOf": "SCHEDULE_MONDAY",
+      "variantType": "V2",
+      "effectiveFrom": "2026-05-01T00:00:00Z",
+      "expiresAt": "2026-06-30T23:59:59Z"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_MONDAY_TEST",
+    "payload": {
+      "day": "MON",
+      "dayFull": "Monday",
+      "dayIndex": 1,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "10:00",
+      "closeTime": "16:00",
+      "timezone": "Asia/Kolkata",
+      "status": "TEST",
+      "variantOf": "SCHEDULE_MONDAY",
+      "variantType": "TEST",
+      "effectiveFrom": "2026-04-28T00:00:00Z",
+      "expiresAt": "2026-05-07T23:59:59Z"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_MONDAY_PEAK_OPEN",
+    "payload": {
+      "day": "MON",
+      "dayFull": "Monday",
+      "dayIndex": 1,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "07:00",
+      "closeTime": "21:00",
+      "timezone": "Asia/Kolkata",
+      "status": "ACTIVE",
+      "variantOf": "SCHEDULE_MONDAY",
+      "variantType": "PEAK_OPEN",
+      "effectiveFrom": "2026-05-01T00:00:00Z",
+      "expiresAt": "2026-05-31T23:59:59Z"
     }
   },
   {
@@ -33,14 +83,7 @@
       "openTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
-      "slots": [
-        { "slotId": "SLOT#TUE#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
-        { "slotId": "SLOT#TUE#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
-        { "slotId": "SLOT#TUE#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
-      ],
-      "status": "ACTIVE",
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "status": "ACTIVE"
     }
   },
   {
@@ -55,14 +98,26 @@
       "openTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
-      "slots": [
-        { "slotId": "SLOT#WED#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
-        { "slotId": "SLOT#WED#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
-        { "slotId": "SLOT#WED#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
-      ],
+      "status": "ACTIVE"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_WEDNESDAY_V2",
+    "payload": {
+      "day": "WED",
+      "dayFull": "Wednesday",
+      "dayIndex": 3,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "08:30",
+      "closeTime": "18:30",
+      "timezone": "Asia/Kolkata",
       "status": "ACTIVE",
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "variantOf": "SCHEDULE_WEDNESDAY",
+      "variantType": "V2",
+      "effectiveFrom": "2026-05-01T00:00:00Z",
+      "expiresAt": "2026-06-30T23:59:59Z"
     }
   },
   {
@@ -77,14 +132,7 @@
       "openTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
-      "slots": [
-        { "slotId": "SLOT#THU#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
-        { "slotId": "SLOT#THU#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
-        { "slotId": "SLOT#THU#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
-      ],
-      "status": "ACTIVE",
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "status": "ACTIVE"
     }
   },
   {
@@ -99,14 +147,26 @@
       "openTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
-      "slots": [
-        { "slotId": "SLOT#FRI#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
-        { "slotId": "SLOT#FRI#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
-        { "slotId": "SLOT#FRI#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
-      ],
-      "status": "ACTIVE",
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "status": "ACTIVE"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_FRIDAY_TEST",
+    "payload": {
+      "day": "FRI",
+      "dayFull": "Friday",
+      "dayIndex": 5,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "09:00",
+      "closeTime": "20:00",
+      "timezone": "Asia/Kolkata",
+      "status": "TEST",
+      "variantOf": "SCHEDULE_FRIDAY",
+      "variantType": "TEST",
+      "effectiveFrom": "2026-04-28T00:00:00Z",
+      "expiresAt": "2026-05-14T23:59:59Z"
     }
   },
   {
@@ -117,17 +177,11 @@
       "dayFull": "Saturday",
       "dayIndex": 6,
       "isWeekend": true,
-      "isWorkingDay": false,
+      "isWorkingDay": true,
       "openTime": "10:00",
       "closeTime": "14:00",
       "timezone": "Asia/Kolkata",
-      "slots": [
-        { "slotId": "SLOT#SAT#AM", "label": "Morning", "start": "10:00", "end": "12:00", "capacity": 25 },
-        { "slotId": "SLOT#SAT#PM", "label": "Afternoon", "start": "12:00", "end": "14:00", "capacity": 25 }
-      ],
-      "status": "REDUCED",
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "status": "REDUCED"
     }
   },
   {
@@ -142,10 +196,7 @@
       "openTime": null,
       "closeTime": null,
       "timezone": "Asia/Kolkata",
-      "slots": [],
-      "status": "CLOSED",
-      "createdAt": "2025-01-01T00:00:00Z",
-      "updatedAt": "2025-01-01T00:00:00Z"
+      "status": "CLOSED"
     }
   }
 ]
