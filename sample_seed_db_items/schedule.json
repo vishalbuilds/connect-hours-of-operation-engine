@@ -1,0 +1,151 @@
+[
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_MONDAY",
+    "payload": {
+      "day": "MON",
+      "dayFull": "Monday",
+      "dayIndex": 1,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "09:00",
+      "closeTime": "18:00",
+      "timezone": "Asia/Kolkata",
+      "slots": [
+        { "slotId": "SLOT#MON#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
+        { "slotId": "SLOT#MON#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
+        { "slotId": "SLOT#MON#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_TUESDAY",
+    "payload": {
+      "day": "TUE",
+      "dayFull": "Tuesday",
+      "dayIndex": 2,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "09:00",
+      "closeTime": "18:00",
+      "timezone": "Asia/Kolkata",
+      "slots": [
+        { "slotId": "SLOT#TUE#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
+        { "slotId": "SLOT#TUE#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
+        { "slotId": "SLOT#TUE#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_WEDNESDAY",
+    "payload": {
+      "day": "WED",
+      "dayFull": "Wednesday",
+      "dayIndex": 3,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "09:00",
+      "closeTime": "18:00",
+      "timezone": "Asia/Kolkata",
+      "slots": [
+        { "slotId": "SLOT#WED#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
+        { "slotId": "SLOT#WED#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
+        { "slotId": "SLOT#WED#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_THURSDAY",
+    "payload": {
+      "day": "THU",
+      "dayFull": "Thursday",
+      "dayIndex": 4,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "09:00",
+      "closeTime": "18:00",
+      "timezone": "Asia/Kolkata",
+      "slots": [
+        { "slotId": "SLOT#THU#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
+        { "slotId": "SLOT#THU#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
+        { "slotId": "SLOT#THU#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_FRIDAY",
+    "payload": {
+      "day": "FRI",
+      "dayFull": "Friday",
+      "dayIndex": 5,
+      "isWeekend": false,
+      "isWorkingDay": true,
+      "openTime": "09:00",
+      "closeTime": "18:00",
+      "timezone": "Asia/Kolkata",
+      "slots": [
+        { "slotId": "SLOT#FRI#AM", "label": "Morning", "start": "09:00", "end": "12:00", "capacity": 50 },
+        { "slotId": "SLOT#FRI#PM", "label": "Afternoon", "start": "12:00", "end": "15:00", "capacity": 50 },
+        { "slotId": "SLOT#FRI#EVE", "label": "Evening", "start": "15:00", "end": "18:00", "capacity": 50 }
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_SATURDAY",
+    "payload": {
+      "day": "SAT",
+      "dayFull": "Saturday",
+      "dayIndex": 6,
+      "isWeekend": true,
+      "isWorkingDay": false,
+      "openTime": "10:00",
+      "closeTime": "14:00",
+      "timezone": "Asia/Kolkata",
+      "slots": [
+        { "slotId": "SLOT#SAT#AM", "label": "Morning", "start": "10:00", "end": "12:00", "capacity": 25 },
+        { "slotId": "SLOT#SAT#PM", "label": "Afternoon", "start": "12:00", "end": "14:00", "capacity": 25 }
+      ],
+      "status": "REDUCED",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "exp": "EXP#SCHEDULE",
+    "id": "SCHEDULE_SUNDAY",
+    "payload": {
+      "day": "SUN",
+      "dayFull": "Sunday",
+      "dayIndex": 0,
+      "isWeekend": true,
+      "isWorkingDay": false,
+      "openTime": null,
+      "closeTime": null,
+      "timezone": "Asia/Kolkata",
+      "slots": [],
+      "status": "CLOSED",
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-01-01T00:00:00Z"
+    }
+  }
+]
