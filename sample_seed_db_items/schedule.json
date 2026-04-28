@@ -8,7 +8,7 @@
       "dayIndex": 1,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "09:00",
+      "startTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
       "status": "ACTIVE"
@@ -23,14 +23,14 @@
       "dayIndex": 1,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "08:00",
+      "startTime": "08:00",
       "closeTime": "19:00",
       "timezone": "Asia/Kolkata",
       "status": "ACTIVE",
       "variantOf": "SCHEDULE_MONDAY",
       "variantType": "V2",
-      "effectiveFrom": "2026-05-01T00:00:00Z",
-      "expiresAt": "2026-06-30T23:59:59Z"
+      "effectiveFrom": "02/01/2026",
+      "expireDate": "02/01/2026"
     }
   },
   {
@@ -42,14 +42,14 @@
       "dayIndex": 1,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "10:00",
+      "startTime": "10:00",
       "closeTime": "16:00",
       "timezone": "Asia/Kolkata",
       "status": "TEST",
       "variantOf": "SCHEDULE_MONDAY",
       "variantType": "TEST",
-      "effectiveFrom": "2026-04-28T00:00:00Z",
-      "expiresAt": "2026-05-07T23:59:59Z"
+      "effectiveFrom": "02/01/2026",
+      "expireDate": "02/01/2026"
     }
   },
   {
@@ -61,14 +61,14 @@
       "dayIndex": 1,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "07:00",
+      "startTime": "07:00",
       "closeTime": "21:00",
       "timezone": "Asia/Kolkata",
       "status": "ACTIVE",
       "variantOf": "SCHEDULE_MONDAY",
       "variantType": "PEAK_OPEN",
-      "effectiveFrom": "2026-05-01T00:00:00Z",
-      "expiresAt": "2026-05-31T23:59:59Z"
+      "effectiveFrom": "02/01/2026",
+      "expireDate": "02/01/2026"
     }
   },
   {
@@ -80,7 +80,7 @@
       "dayIndex": 2,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "09:00",
+      "startTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
       "status": "ACTIVE"
@@ -95,7 +95,7 @@
       "dayIndex": 3,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "09:00",
+      "startTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
       "status": "ACTIVE"
@@ -110,14 +110,14 @@
       "dayIndex": 3,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "08:30",
+      "startTime": "08:30",
       "closeTime": "18:30",
       "timezone": "Asia/Kolkata",
       "status": "ACTIVE",
       "variantOf": "SCHEDULE_WEDNESDAY",
       "variantType": "V2",
-      "effectiveFrom": "2026-05-01T00:00:00Z",
-      "expiresAt": "2026-06-30T23:59:59Z"
+      "effectiveFrom": "02/01/2026",
+      "expireDate": "02/01/2026"
     }
   },
   {
@@ -129,7 +129,7 @@
       "dayIndex": 4,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "09:00",
+      "startTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
       "status": "ACTIVE"
@@ -144,7 +144,7 @@
       "dayIndex": 5,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "09:00",
+      "startTime": "09:00",
       "closeTime": "18:00",
       "timezone": "Asia/Kolkata",
       "status": "ACTIVE"
@@ -159,14 +159,14 @@
       "dayIndex": 5,
       "isWeekend": false,
       "isWorkingDay": true,
-      "openTime": "09:00",
+      "startTime": "09:00",
       "closeTime": "20:00",
       "timezone": "Asia/Kolkata",
       "status": "TEST",
       "variantOf": "SCHEDULE_FRIDAY",
       "variantType": "TEST",
-      "effectiveFrom": "2026-04-28T00:00:00Z",
-      "expiresAt": "2026-05-14T23:59:59Z"
+      "effectiveFrom": "02/01/2026",
+      "expireDate": "02/01/2026"
     }
   },
   {
@@ -178,7 +178,7 @@
       "dayIndex": 6,
       "isWeekend": true,
       "isWorkingDay": true,
-      "openTime": "10:00",
+      "startTime": "10:00",
       "closeTime": "14:00",
       "timezone": "Asia/Kolkata",
       "status": "REDUCED"
@@ -193,7 +193,7 @@
       "dayIndex": 0,
       "isWeekend": true,
       "isWorkingDay": false,
-      "openTime": null,
+      "startTime": null,
       "closeTime": null,
       "timezone": "Asia/Kolkata",
       "status": "CLOSED"

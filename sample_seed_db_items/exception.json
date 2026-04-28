@@ -14,7 +14,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "02/01/2026",
+      "expireDate": "02/01/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of New Year's Day. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -33,7 +33,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "27/01/2026",
+      "expireDate": "27/01/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Republic Day. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -52,7 +52,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "15/03/2026",
+      "expireDate": "15/03/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Holi. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -71,7 +71,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "04/04/2026",
+      "expireDate": "04/04/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Good Friday. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -90,7 +90,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "01/04/2026",
+      "expireDate": "01/04/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Eid ul-Fitr. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -109,7 +109,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "16/08/2026",
+      "expireDate": "16/08/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Independence Day. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -128,7 +128,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "16/08/2026",
+      "expireDate": "16/08/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Janmashtami. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -147,7 +147,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "03/10/2026",
+      "expireDate": "03/10/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Gandhi Jayanti. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -166,7 +166,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "21/10/2026",
+      "expireDate": "21/10/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Diwali. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   },
@@ -185,7 +185,7 @@
       "timezone": "Asia/Kolkata",
       "startTime": null,
       "closedTime": null,
-      "exceptionExpiryDate": "26/12/2026",
+      "expireDate": "26/12/2026",
       "prompt": "Thank you for calling. Our office is closed today in observance of Christmas Day. We will resume normal business hours on the next working day. Please call back then or leave a message."
     }
   }
