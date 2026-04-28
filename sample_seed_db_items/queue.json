@@ -21,7 +21,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "01/01/2027"
+      "expireDate": "01/01/2027"
     }
   },
   {
@@ -46,7 +46,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "26/01/2027"
+      "expireDate": "26/01/2027"
     }
   },
   {
@@ -71,7 +71,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "14/03/2027"
+      "expireDate": "14/03/2027"
     }
   },
   {
@@ -96,7 +96,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY_TEST",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "03/04/2027"
+      "expireDate": "03/04/2027"
     }
   },
   {
@@ -121,7 +121,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY_TEST",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "31/03/2027"
+      "expireDate": "31/03/2027"
     }
   },
   {
@@ -146,7 +146,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "15/08/2027"
+      "expireDate": "15/08/2027"
     }
   },
   {
@@ -171,7 +171,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY_TEST",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "15/08/2027"
+      "expireDate": "15/08/2027"
     }
   },
   {
@@ -196,7 +196,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY_TEST",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "02/10/2027"
+      "expireDate": "02/10/2027"
     }
   },
   {
@@ -221,7 +221,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY_TEST",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "20/10/2027"
+      "expireDate": "20/10/2027"
     }
   },
   {
@@ -246,7 +246,7 @@
       "SCHEDULE#THU": "SCHEDULE_THURSDAY",
       "SCHEDULE#FRI": "SCHEDULE_FRIDAY",
       "SCHEDULE#SAT": "SCHEDULE_SATURDAY",
-      "queueExpireDate": "25/12/2027"
+      "expireDate": "25/12/2027"
     }
   }
 ]
