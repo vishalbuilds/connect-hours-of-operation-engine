@@ -24,7 +24,7 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, A
 
     if not parse_and_validate_obj.is_valid_event():
         return ResponseBuilder.error(
-            status="ERROR", message="Invalid event parameters", payload=parameters
+            status="CLOSE", message="Invalid event parameters", payload=parameters
         )
 
     # ------------------------------------------------------------------
@@ -38,11 +38,11 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, A
     queue_expiry = queue_svc_obj.check_expiry()
 
     if queue_expiry == "expired":
-        return ResponseBuilder.closed(
+        return ResponseBuilder.error(
             status="CLOSED", message="Queue expired", payload=queue_payload
         )
     if queue_expiry == "unknown":
-        return ResponseBuilder.closed(
+        return ResponseBuilder.error(
             status="CLOSED", message="Missing expiry date", payload=queue_payload
         )
 
@@ -59,7 +59,7 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, A
         exception_expiry = exception_svc_obj.check_expiry()
 
         if exception_expiry == "valid":
-            return ResponseBuilder.open(
+            return ResponseBuilder.success(
                 status="OPEN", message="Exception record", payload=exception_payload
             )
         if exception_expiry == "expired":
@@ -86,22 +86,22 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, A
         schedule_expiry = schedule_svc_obj.check_expiry()
 
         if schedule_expiry == "valid":
-            return ResponseBuilder.open(
+            return ResponseBuilder.success(
                 status="OPEN", message="Schedule record", payload=schedule_payload
             )
         if schedule_expiry == "expired":
-            return ResponseBuilder.closed(
+            return ResponseBuilder.error(
                 status="CLOSED",
                 message="Schedule record expired",
                 payload=schedule_payload,
             )
         if schedule_expiry == "unknown":
-            return ResponseBuilder.closed(
+            return ResponseBuilder.error(
                 status="CLOSED",
                 message="Missing schedule expiry date",
                 payload=schedule_payload,
             )
 
-    return ResponseBuilder.closed(
+    return ResponseBuilder.error(
         status="CLOSED", message="No schedule found for today", payload=queue_payload
     )
