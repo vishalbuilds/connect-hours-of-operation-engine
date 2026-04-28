@@ -9,7 +9,7 @@ from common.response_builder import ResponseBuilder
 logger = Logger(service="hours-of-operation")
 
 
-@logger.inject_lambda_context(log_event=True)
+@logger.inject_lambda_context(clear_state=True, log_event=False)
 def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, Any]:
 
     # ------------------------------------------------------------------
@@ -18,6 +18,9 @@ def lambda_handler(event: Dict[str, Any], context: LambdaContext) -> Dict[str, A
 
     parse_and_validate_obj = ParseAndValidate(event)
     parameters = parse_and_validate_obj.get_params()
+    logger.append_keys(
+        ContactId=parameters["contact_id"] or event["Details"]["ContactId"]
+    )
 
     if not parse_and_validate_obj.is_valid_event():
         return ResponseBuilder.error(
