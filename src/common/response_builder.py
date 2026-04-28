@@ -6,20 +6,29 @@ Status = Literal["OPEN", "CLOSED", "HOLIDAY", "MEETING", "ERROR"]
 class ResponseBuilder:
 
     @staticmethod
-    def open(status: Status, message: str, payload: Optional[dict] = None) -> dict:
+    def success(
+        status: Status,
+        message: str,
+        payload: Optional[dict] = None,
+        lambda_status="SUCCESS",
+    ) -> dict:
         return ResponseBuilder._build(status, message, payload)
 
     @staticmethod
-    def closed(status: Status, message: str, payload: Optional[dict] = None) -> dict:
+    def error(
+        status: Status,
+        message: str,
+        payload: Optional[dict] = None,
+        lambda_status="ERROR",
+    ) -> dict:
         return ResponseBuilder._build(status, message, payload)
 
     @staticmethod
-    def error(status: Status, message: str, payload: Optional[dict] = None) -> dict:
-        return ResponseBuilder._build(status, message, payload)
-
-    @staticmethod
-    def _build(status: Status, message: str, payload: Optional[dict]) -> dict:
+    def _build(
+        status: Status, message: str, payload: Optional[dict], lambda_status
+    ) -> dict:
         return {
+            "lambda_status": lambda_status,
             "status": status,
             "message": message,
             "payload": payload or {},
