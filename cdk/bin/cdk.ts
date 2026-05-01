@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import * as cdk from "aws-cdk-lib";
-import { DynamoDBStack } from "../lib/cdk-stack";
+import { DynamoDBStack } from "../lib/dynamodb-stack";
 
 const app = new cdk.App();
 const cfg = app.node.tryGetContext("app") ?? {};
