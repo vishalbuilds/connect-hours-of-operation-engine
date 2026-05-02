@@ -15,27 +15,72 @@
     ]
   },
   "context": {
-    "app": {
+    "cdkTags": {
+      "gitHub": "https://github.com/vishalbuilds",
+      "email": "vibisingh@gmail.com",
+      "repository": "https://github.com/vishalbuilds/connect-hours-of-operation-engine.git",
+      "description": "A custom Hours of Operation engine for Amazon Connect that enables dynamic, configurable time-based routing beyond AWS native capabilities. Built with AWS CDK (TypeScript), DynamoDB and AWS Lambda.",
+      "owner": "Vishal Singh",
       "name": "connect-hours-of-operation",
-      "primaryRegion": "us-west-2",
-      "tableName": "CCaS-Connect-Hours-Of-Operation-Table-Prod-Default",
-      "partitionKeyName": "exp",
-      "sortKeyName": "id",
-      "readCapacity": 5,
-      "minWriteCapacity": 1,
-      "maxWriteCapacity": 10,
-      "deletionProtection": true,
-      "removalPolicy": "RETAIN",
-      "pointInTimeRecovery": true,
-      "ttlAttribute": "ttl",
-      "multiRegionConsistency": "STRONG",
-      "replicaRegions": ["us-east-1"],
-      "witnessRegion": "us-east-2",
-      "resourceTags": [
-        { "key": "Project", "value": "connect-hours-of-operation" },
-        { "key": "ManagedBy", "value": "CDK" },
-        { "key": "Environment", "value": "Prod" }
-      ]
+      "managedBy": "CDK"
+    },
+    "infraVersion": {
+      "v1": {
+        "awsRegion": "us-west-2",
+        "awsAccount": "1234567890",
+        "us-west-2": {
+          "dynamodb": {
+            "tableName": "CCaS-Connect-Hours-Of-Operation-Table-Prod-Default",
+            "partitionKeyName": "exp",
+            "sortKeyName": "id",
+            "readCapacity": 5,
+            "minWriteCapacity": 1,
+            "maxWriteCapacity": 10,
+            "deletionProtection": true,
+            "removalPolicy": "RETAIN",
+            "pointInTimeRecovery": true,
+            "ttlAttribute": "ttl",
+            "multiRegionConsistency": "STRONG",
+            "replicaRegions": ["us-east-1"],
+            "witnessRegion": "us-east-2"
+          },
+          "lambda": {
+            "functionName": "CCaS-Connect-Hours-Of-Operation-Lambda-Prod-Default",
+            "ecrRepositoryArn": "arn:aws:ecr:us-east-1:123456789012:repository/Command-Center-Lambda",
+            "imageTag": "latest",
+            "description": "Return hours of operation response to amazon connect contact flow",
+            "environmentVariables": {}
+          }
+        }
+      },
+      "v2": {
+        "awsRegion": "eu-west-1",
+        "awsAccount": "0987654321",
+        "eu-west-1": {
+          "dynamodb": {
+            "tableName": "CCaS-Connect-Hours-Of-Operation-Table-Prod-EU",
+            "partitionKeyName": "exp",
+            "sortKeyName": "id",
+            "readCapacity": 5,
+            "minWriteCapacity": 1,
+            "maxWriteCapacity": 10,
+            "deletionProtection": true,
+            "removalPolicy": "RETAIN",
+            "pointInTimeRecovery": true,
+            "ttlAttribute": "ttl",
+            "multiRegionConsistency": "STRONG",
+            "replicaRegions": ["us-east-1"],
+            "witnessRegion": "us-west-2"
+          },
+          "lambda": {
+            "functionName": "CCaS-Connect-Hours-Of-Operation-Lambda-Prod-EU",
+            "ecrRepositoryArn": "arn:aws:ecr:eu-west-1:0987654321:repository/Command-Center-Lambda",
+            "imageTag": "latest",
+            "description": "Return hours of operation response to amazon connect contact flow",
+            "environmentVariables": {}
+          }
+        }
+      }
     },
 
     "@aws-cdk/core:checkSecretUsage": true,
