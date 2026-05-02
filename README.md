@@ -1,6 +1,6 @@
 # connect-hours-of-operation-engine
 
-A custom Hours of Operation engine for **Amazon Connect** that enables dynamic, configurable time-based routing beyond AWS native capabilities. Built with AWS CDK (TypeScript), DynamoDB Global Tables, and AWS Lambda.
+A custom Hours of Operation engine for **Amazon Connect** that enables dynamic, configurable time-based routing beyond AWS native capabilities. Built with AWS CDK (TypeScript), DynamoDB Global Tables, and a containerised AWS Lambda function (Python 3.11).
 
 ---
 
@@ -14,10 +14,14 @@ A custom Hours of Operation engine for **Amazon Connect** that enables dynamic, 
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
 - [CDK Configuration](#cdk-configuration)
+- [Lambda Handler](#lambda-handler)
+- [Environment Variables](#environment-variables)
 - [DynamoDB Data Model](#dynamodb-data-model)
 - [Sample Seed Data](#sample-seed-data)
 - [Lambda Sample Input Data](#lambda-sample-input-data)
 - [Development Commands](#development-commands)
+- [Unit Tests](#unit-tests)
+- [CI / CD](#ci--cd)
 - [License](#license)
 
 ---
@@ -30,19 +34,20 @@ A custom Hours of Operation engine for **Amazon Connect** that enables dynamic, 
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | ✅ CDK — DynamoDB       | DynamoDB Global Table stack with auto-scaling, PITR, TTL, and multi-region strong consistency                                     |
 | ✅ Lambda function code | Python handler + helper modules (`parse_and_validate`, `payload_service`, `response_builder`, `dynamodb`) with Powertools logging |
+| ✅ CDK — Lambda         | CDK construct to deploy the Lambda function from an ECR container image, IAM role, and DynamoDB read policy                       |
+| ✅ Dockerfile — Lambda  | Container image for the Lambda function (Python 3.11 + dependencies)                                                             |
+| ✅ Unit tests — Lambda  | Pytest suite covering handler layers, validation, expiry logic, DynamoDB client, and response builder (~167 tests)                |
+| ✅ CI — CodeQL          | CodeQL Advanced security scanning for Python and TypeScript on every push and pull request                                        |
 
 ### Pending
 
-| Component                      | Status  | Description                                                                          |
-| ------------------------------ | ------- | ------------------------------------------------------------------------------------ |
-| CDK — Lambda                   | Pending | CDK construct to deploy the Lambda function, IAM role, and DynamoDB read policy      |
-| Dockerfile — Lambda            | Pending | Container image for the Lambda function (Python + dependencies)                      |
-| GitHub Actions — Lambda deploy | Pending | Workflow to build and deploy the Lambda function on push                             |
-| CI — CDK                       | Pending | Workflow to run `cdk synth` + CDK unit tests on pull requests                        |
-| CI — Lambda                    | Pending | Workflow to lint, type-check, and unit-test the Lambda source on pull requests       |
-| CI — Docker                    | Pending | Workflow to build and scan the Lambda container image on pull requests               |
-| Unit tests — Lambda            | Pending | Pytest suite covering handler layers, validation, expiry logic, and response builder |
-| Sample test input data         | Pending | JSON event fixtures for happy-path, holiday, expired, and error scenarios            |
+| Component                      | Status  | Description                                                                    |
+| ------------------------------ | ------- | ------------------------------------------------------------------------------ |
+| GitHub Actions — Lambda deploy | Pending | Workflow to build and push the container image to ECR and deploy Lambda on push |
+| CI — CDK                       | Pending | Workflow to run `cdk synth` + CDK unit tests on pull requests                  |
+| CI — Lambda                    | Pending | Workflow to lint, type-check (mypy), and unit-test the Lambda source on PRs    |
+| CI — Docker                    | Pending | Workflow to build and scan the Lambda container image on pull requests         |
+| Sample test input data         | Pending | JSON event fixtures for happy-path, holiday, expired, and error scenarios      |
 
 ---
 
@@ -51,12 +56,12 @@ A custom Hours of Operation engine for **Amazon Connect** that enables dynamic, 
 Amazon Connect's native hours-of-operation feature is limited to simple weekly schedules. This engine replaces it with a fully configurable, DynamoDB-backed system that supports:
 
 - Per-day time slots with individual capacity limits
-- Timezone-aware scheduling
+- Timezone-aware scheduling (any IANA timezone)
 - Holiday and exception overrides (national, regional, religious)
 - Multi-calendar support (Gregorian, Hindu, Islamic)
 - Queue-based exception routing
 
-A Lambda function (on the `Lambda-function` branch) reads from DynamoDB at call time and determines whether the contact center is open, returning a structured response that Amazon Connect contact flows use for routing decisions.
+A Lambda function reads from DynamoDB at call time and determines whether the contact centre is open, returning a structured response that Amazon Connect contact flows use for routing decisions.
 
 ---
 
@@ -68,20 +73,21 @@ Amazon Connect Contact Flow
          ▼
    AWS Lambda Function
    (hours-of-operation-checker)
+   [Container image from ECR]
          │
          ▼
   DynamoDB Global Table
-  (HoursOfOperationTable)
+  (CCaS-Connect-Hours-Of-Operation-Table-Prod-Default)
   ┌─────────────────────────────────────┐
   │  Primary:  us-west-2                │
   │  Replica:  us-east-1                │
   │  Witness:  us-east-2 (strong sync)  │
   └─────────────────────────────────────┘
          │
-   ┌─────┴──────┐
-   │            │
+   ┌─────┴──────────┐
+   │                │
 EXP#SCHEDULE  EXP#EXCEPTION  EXP#QUEUE
-(weekly hours) (holidays)    (exception routing)
+(weekly hours) (holidays)    (queue routing)
 ```
 
 ---
@@ -92,7 +98,7 @@ EXP#SCHEDULE  EXP#EXCEPTION  EXP#QUEUE
 | ------------------- | ---------------------------------------------- |
 | Weekly schedules    | Per-day open/close times with named time slots |
 | Capacity management | Per-slot capacity limits for load management   |
-| Timezone support    | Fully timezone-aware (`Asia/Kolkata`, etc.)    |
+| Timezone support    | Fully timezone-aware (`Asia/Kolkata`, `America/New_York`, etc.) |
 | Holiday exceptions  | Gazetted and regional holiday overrides        |
 | Multi-calendar      | Gregorian, Hindu, Islamic calendar types       |
 | Exception queues    | Date-scoped queue handlers per holiday         |
@@ -100,6 +106,8 @@ EXP#SCHEDULE  EXP#EXCEPTION  EXP#QUEUE
 | High availability   | Point-in-time recovery + deletion protection   |
 | Auto-scaling writes | Write capacity auto-scales from 1 to 10        |
 | TTL support         | Automatic expiry of stale schedule entries     |
+| Containerised Lambda | Python 3.11 container image deployed via ECR  |
+| Structured logging  | AWS Lambda Powertools JSON logging             |
 
 ---
 
@@ -107,19 +115,45 @@ EXP#SCHEDULE  EXP#EXCEPTION  EXP#QUEUE
 
 ```
 connect-hours-of-operation-engine/
-├── cdk/                          # AWS CDK infrastructure (TypeScript)
+├── cdk/                              # AWS CDK infrastructure (TypeScript)
 │   ├── bin/
-│   │   └── cdk.ts                # CDK app entry point
+│   │   └── cdk.ts                   # CDK app entry point — version handler, stack instantiation
 │   ├── lib/
-│   │   └── cdk-stack.ts          # DynamoDBStack construct
-│   ├── test/                     # CDK unit tests (Jest)
-│   ├── cdk.json                  # CDK context configuration
-│   ├── package.json
-│   └── tsconfig.json
-├── sample_seed_db_items/         # Sample DynamoDB seed data
-│   ├── schedule.json             # Weekly schedule definitions (7 items)
-│   ├── exception.json            # Holiday exception definitions (10 items)
-│   └── queue.json                # Holiday queue handlers (10 items)
+│   │   ├── dynamodb-stack.ts        # DynamoDB Global Table construct
+│   │   └── lambda-stacks.ts         # Lambda container deployment construct + IAM role
+│   ├── test/
+│   │   └── cdk.test.ts              # CDK unit tests (Jest)
+│   ├── cdk.json                     # CDK context configuration (v1: us-west-2, v2: eu-west-1)
+│   ├── package.json                 # Node.js dependencies
+│   ├── tsconfig.json                # TypeScript configuration
+│   ├── eslint.config.mjs            # ESLint configuration
+│   └── jest.config.js               # Jest test configuration
+├── src/                             # Lambda function source (Python 3.11)
+│   ├── lambda_handler.py            # Main handler — 4-layer orchestration
+│   ├── common/
+│   │   ├── parse_and_validate.py   # Event parsing and timezone validation
+│   │   ├── payload_service.py      # DynamoDB query, expiry, and key resolution
+│   │   ├── response_builder.py     # Response envelope builder
+│   │   └── dynamodb.py             # Boto3 DynamoDB client singleton
+│   ├── test_unit/
+│   │   ├── conftest.py             # Pytest fixtures and environment setup
+│   │   ├── test_lambda_handler.py  # Handler integration tests (~75 tests)
+│   │   ├── test_parse_and_validate.py
+│   │   ├── test_payload_service.py
+│   │   ├── test_dynamodb.py
+│   │   └── test_response_builder.py
+│   ├── requirements.txt             # Production: aws-lambda-powertools, boto3, botocore
+│   └── requirements.dev..txt        # Development: pytest, pytest-cov
+├── sample_seed_db_items/            # Sample DynamoDB seed data
+│   ├── schedule.json                # Weekly schedule definitions (7+ items)
+│   ├── exception.json               # Holiday exception definitions (10 items)
+│   └── queue.json                   # Queue-to-schedule/exception mappings (10+ items)
+├── .github/
+│   └── workflows/
+│       └── codeql.yml               # CodeQL Advanced security analysis
+├── Dockerfile                       # Lambda container image (python:3.11 base)
+├── .dockerignore
+├── .gitignore
 ├── LICENSE
 └── README.md
 ```
@@ -135,6 +169,8 @@ connect-hours-of-operation-engine/
 | AWS CDK CLI     | 2.x (`npm install -g aws-cdk`)                          |
 | AWS CLI         | 2.x                                                     |
 | AWS credentials | Configured via `aws configure` or environment variables |
+| Docker          | Latest stable (for building / running the container image) |
+| Python          | 3.11+ (local development and unit tests only)           |
 
 ---
 
@@ -188,30 +224,39 @@ aws dynamodb batch-write-item \
   --region us-west-2
 ```
 
-> Seed data is in the `sample_seed_db_items/` format — wrap each array in a `{ "HoursOfOperationTable": [...] }` envelope if using `batch-write-item` directly.
-
 ---
 
 ## CDK Configuration
 
-All table parameters are controlled via the `context.app` block in [cdk/cdk.json](cdk/cdk.json). No code changes required to tune the deployment.
+All parameters are controlled via the `infraVersion` context block in [cdk/cdk.json](cdk/cdk.json). No code changes are required to tune a deployment. Two independent versions are pre-configured: `v1` (US, `us-west-2` primary) and `v2` (EU, `eu-west-1` primary).
 
-| Parameter                | Default                 | Description                                |
-| ------------------------ | ----------------------- | ------------------------------------------ |
-| `primaryRegion`          | `us-west-2`             | AWS region for the primary table           |
-| `tableName`              | `HoursOfOperationTable` | DynamoDB table name                        |
-| `partitionKeyName`       | `pk`                    | Partition key attribute name               |
-| `sortKeyName`            | `sk`                    | Sort key attribute name                    |
-| `readCapacity`           | `5`                     | Fixed read capacity units                  |
-| `minWriteCapacity`       | `1`                     | Auto-scale write minimum                   |
-| `maxWriteCapacity`       | `10`                    | Auto-scale write maximum                   |
-| `deletionProtection`     | `true`                  | Prevent accidental table deletion          |
-| `removalPolicy`          | `RETAIN`                | CDK removal policy (`RETAIN` or `DESTROY`) |
-| `pointInTimeRecovery`    | `true`                  | Enable PITR backups                        |
-| `ttlAttribute`           | `ttl`                   | TTL attribute name for item expiry         |
-| `multiRegionConsistency` | `STRONG`                | `STRONG` or `EVENTUAL`                     |
-| `replicaRegions`         | `["us-east-1"]`         | List of replica regions                    |
-| `witnessRegion`          | `us-east-2`             | Witness region (required for `STRONG`)     |
+### DynamoDB parameters
+
+| Parameter                | Default (v1)                                            | Description                                |
+| ------------------------ | ------------------------------------------------------- | ------------------------------------------ |
+| `tableName`              | `CCaS-Connect-Hours-Of-Operation-Table-Prod-Default`    | DynamoDB table name                        |
+| `partitionKeyName`       | `exp`                                                   | Partition key attribute name               |
+| `sortKeyName`            | `id`                                                    | Sort key attribute name                    |
+| `readCapacity`           | `5`                                                     | Fixed read capacity units                  |
+| `minWriteCapacity`       | `1`                                                     | Auto-scale write minimum                   |
+| `maxWriteCapacity`       | `10`                                                    | Auto-scale write maximum                   |
+| `deletionProtection`     | `true`                                                  | Prevent accidental table deletion          |
+| `removalPolicy`          | `RETAIN`                                                | CDK removal policy (`RETAIN` or `DESTROY`) |
+| `pointInTimeRecovery`    | `true`                                                  | Enable PITR backups                        |
+| `ttlAttribute`           | `ttl`                                                   | TTL attribute name for item expiry         |
+| `multiRegionConsistency` | `STRONG`                                                | `STRONG` or `EVENTUAL`                     |
+| `replicaRegions`         | `["us-east-1"]`                                         | List of replica regions                    |
+| `witnessRegion`          | `us-east-2`                                             | Witness region (required for `STRONG`)     |
+
+### Lambda parameters
+
+| Parameter          | Description                                          |
+| ------------------ | ---------------------------------------------------- |
+| `functionName`     | Lambda function name                                 |
+| `ecrRepositoryArn` | ECR repository ARN for the container image           |
+| `imageTag`         | Docker image tag to deploy (default: `latest`)       |
+| `description`      | Lambda description string                            |
+| `environmentVariables` | Map of custom environment variables             |
 
 > **Strong consistency requirement:** When `multiRegionConsistency` is `STRONG`, a `witnessRegion` must be provided and must differ from the primary and all replica regions.
 
@@ -223,28 +268,93 @@ npx cdk deploy --context app='{"tableName":"MyTable","primaryRegion":"eu-west-1"
 
 ---
 
+## Lambda Handler
+
+The handler ([src/lambda_handler.py](src/lambda_handler.py)) processes every Amazon Connect invocation through four sequential layers:
+
+```
+Layer 1 — Event Validation
+  ParseAndValidate extracts expression_type, id, time_zone, contact_id
+  ├─ Validates required fields are present and non-empty
+  ├─ Validates expression_type is whitelisted (QUEUE | PHONE_NUMBER)
+  └─ Validates timezone via Python zoneinfo.ZoneInfo
+         │ failure → ERROR response
+         ▼
+Layer 2 — Queue / Entity Lookup
+  PayloadService fetches the queue/entity item from DynamoDB
+  ├─ Checks expiry date (MM/DD/YYYY)
+  │    └─ expired → CLOSED response
+  └─ Checks for today's EXCEPTION key (EXCEPTION#MM/DD/YYYY)
+         │ exception key found → Layer 3
+         │ no exception key   → Layer 4
+         ▼
+Layer 3 — Exception / Holiday Check
+  Fetches the referenced exception item
+  ├─ Checks exception expiry
+  │    └─ expired → continue to Layer 4
+  └─ valid exception → OPEN response
+
+Layer 4 — Schedule Check
+  Fetches the schedule for today's day-of-week (SCHEDULE#Monday …)
+  ├─ Checks schedule expiry
+  │    └─ expired → CLOSED response
+  └─ valid schedule → OPEN response
+         │ not found → CLOSED response
+```
+
+### Response status codes
+
+| Status    | Meaning                                                    |
+| --------- | ---------------------------------------------------------- |
+| `OPEN`    | Contact centre is open (valid schedule or exception found) |
+| `CLOSED`  | Closed — queue/schedule expired or no schedule found       |
+| `ERROR`   | Validation error — missing or invalid input parameters     |
+| `HOLIDAY` | Available for extension (not currently returned)           |
+| `MEETING` | Available for extension (not currently returned)           |
+
+---
+
+## Environment Variables
+
+Set these on the Lambda function (via CDK `environmentVariables` context or directly in the console):
+
+| Variable                   | Default                  | Description                              |
+| -------------------------- | ------------------------ | ---------------------------------------- |
+| `TABLE_NAME`               | _(required)_             | DynamoDB table name                      |
+| `AWS_REGION`               | `us-west-2`              | DynamoDB region                          |
+| `PK_NAME`                  | `pk`                     | Partition key attribute name             |
+| `SK_NAME`                  | `sk`                     | Sort key attribute name                  |
+| `POWERTOOLS_SERVICE_NAME`  | `hours-of-operation`     | AWS Lambda Powertools service name       |
+| `LOG_LEVEL`                | `INFO`                   | Logging level (`DEBUG`, `INFO`, `ERROR`) |
+
+> The unit-test fixtures in [src/test_unit/conftest.py](src/test_unit/conftest.py) set `TABLE_NAME=test-hoo-table`, `AWS_REGION=us-east-1`, `PK_NAME=pk`, `SK_NAME=sk`, and `LOG_LEVEL=ERROR`.
+
+---
+
 ## DynamoDB Data Model
 
 The table uses a single-table design with an **Entity-Expression (EXP#)** partition key pattern.
 
-### Key Schema
+### Key schema
 
-| Attribute    | Type   | Role                                                    |
-| ------------ | ------ | ------------------------------------------------------- |
-| `pk` (`exp`) | String | Partition key — entity type prefix, e.g. `EXP#SCHEDULE` |
-| `sk` (`id`)  | String | Sort key — unique identifier within entity type         |
-| `payload`    | Map    | All business data for the item                          |
-| `ttl`        | Number | Unix timestamp for automatic expiry                     |
+| Attribute     | Type   | Role                                                     |
+| ------------- | ------ | -------------------------------------------------------- |
+| `exp` (`pk`)  | String | Partition key — entity type prefix, e.g. `EXP#SCHEDULE` |
+| `id` (`sk`)   | String | Sort key — unique identifier within entity type          |
+| `payload`     | Map    | All business data for the item                           |
+| `ttl`         | Number | Unix timestamp for automatic DynamoDB TTL expiry         |
 
-### Entity Types
+> The `PK_NAME` and `SK_NAME` environment variables let you customise the attribute names without changing code.
 
-#### `EXP#SCHEDULE` — Weekly Operating Hours
+---
+
+### `EXP#SCHEDULE` — Weekly Operating Hours
 
 One item per day of the week.
 
 ```
-pk  = "EXP#SCHEDULE"
-sk  = "SCHEDULE_MONDAY" | "SCHEDULE_TUESDAY" | ... | "SCHEDULE_SUNDAY"
+exp = "EXP#SCHEDULE"
+id  = "SCHEDULE_MONDAY" | "SCHEDULE_TUESDAY" | ... | "SCHEDULE_SUNDAY"
 ```
 
 `payload` fields:
@@ -255,12 +365,13 @@ sk  = "SCHEDULE_MONDAY" | "SCHEDULE_TUESDAY" | ... | "SCHEDULE_SUNDAY"
 | `dayFull`      | String  | Full name: `Monday`, ...                  |
 | `dayIndex`     | Number  | 0 (Sunday) – 6 (Saturday)                 |
 | `isWeekend`    | Boolean | Whether the day is a weekend              |
-| `isWorkingDay` | Boolean | Whether the contact center operates       |
+| `isWorkingDay` | Boolean | Whether the contact centre operates       |
 | `openTime`     | String  | Opening time `HH:MM` (null if closed)     |
 | `closeTime`    | String  | Closing time `HH:MM` (null if closed)     |
 | `timezone`     | String  | IANA timezone, e.g. `Asia/Kolkata`        |
 | `slots`        | Array   | Named time slots within the operating day |
 | `status`       | String  | `ACTIVE`, `REDUCED`, or `CLOSED`          |
+| `expireDate`   | String  | Expiry date `MM/DD/YYYY`                  |
 
 Each slot within `slots`:
 
@@ -274,13 +385,13 @@ Each slot within `slots`:
 
 ---
 
-#### `EXP#EXCEPTION` — Holiday Definitions
+### `EXP#EXCEPTION` — Holiday Definitions
 
 One item per holiday event.
 
 ```
-pk  = "EXP#EXCEPTION"
-sk  = "EXCEPTION_NEW_YEAR" | "EXCEPTION_DIWALI" | ...
+exp = "EXP#EXCEPTION"
+id  = "EXCEPTION_NEW_YEAR" | "EXCEPTION_DIWALI" | ...
 ```
 
 `payload` fields:
@@ -294,27 +405,44 @@ sk  = "EXCEPTION_NEW_YEAR" | "EXCEPTION_DIWALI" | ...
 | `calendarType`      | String  | `gregorian`, `hindu`, or `islamic`  |
 | `isGazettedHoliday` | Boolean | Official government gazette status  |
 | `affectedSchedules` | Array   | Schedule IDs this holiday overrides |
+| `expireDate`        | String  | Expiry date `MM/DD/YYYY`            |
 
 ---
 
-#### `EXP#QUEUE` — Holiday Exception Queue Handlers
+### `EXP#QUEUE` — Queue Handlers
 
-One item per holiday, mapping exceptions to the weekly schedule identifiers.
+One item per queue, mapping exception dates and day-of-week schedules to their respective DynamoDB sort keys.
 
 ```
-pk  = "EXP#QUEUE"
-sk  = "arn:aws:sqs:<region>:<account>:queue-<holiday>-handler"
+exp = "EXP#QUEUE"
+id  = "arn:aws:connect:<region>:<account>:instance/.../queue/..."
 ```
 
 `payload` fields:
 
-| Field              | Type   | Description                        |
-| ------------------ | ------ | ---------------------------------- |
-| `queueName`        | String | Logical queue name                 |
-| `description`      | String | What this handler covers           |
-| `EXCEPTION#<date>` | String | Reference to the exception item ID |
-| `SCHEDULE#<DOW>`   | String | Reference to schedule for each day |
-| `queueExpireDate`  | String | Handler expiry date `DD/MM/YYYY`   |
+| Field                   | Type   | Description                                      |
+| ----------------------- | ------ | ------------------------------------------------ |
+| `queueName`             | String | Logical queue name                               |
+| `description`           | String | What this queue covers                           |
+| `EXCEPTION#MM/DD/YYYY`  | String | Reference to exception `id` for that date        |
+| `SCHEDULE#<DayOfWeek>`  | String | Reference to schedule `id` for that day          |
+| `expireDate`            | String | Queue handler expiry date `MM/DD/YYYY`           |
+
+**Example queue payload:**
+
+```json
+{
+  "exp": "EXP#QUEUE",
+  "id": "arn:aws:connect:us-west-2:123456789012:instance/.../queue/...",
+  "payload": {
+    "queueName": "Support_Chat",
+    "EXCEPTION#01/01/2026": "EXCEPTION_NEW_YEAR",
+    "SCHEDULE#Monday": "SCHEDULE_MONDAY",
+    "SCHEDULE#Tuesday": "SCHEDULE_TUESDAY",
+    "expireDate": "01/01/2027"
+  }
+}
+```
 
 ---
 
@@ -355,77 +483,47 @@ Each queue handler maps a holiday exception to all seven day-of-week schedules a
 
 ## Lambda Sample Input Data
 
-The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event. All parameters are passed under `Details.Parameters`.
+The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event. All routing parameters are passed under `Details.Parameters`.
 
-### Event structure
-
-```json
-{
-    "Details": {
-        "ContactData": {
-            "Attributes": {
-               "exampleAttributeKey1": "exampleAttributeValue1"
-              },
-            "Channel": "VOICE",
-            "ContactId": "4a573372-1f28-4e26-b97b-XXXXXXXXXXX",
-            "CustomerEndpoint": {
-                "Address": "+1234567890",
-                "Type": "TELEPHONE_NUMBER"
-            },
-            "CustomerId": "someCustomerId",
-            "Description": "someDescription",
-            "InitialContactId": "4a573372-1f28-4e26-b97b-XXXXXXXXXXX",
-            "InitiationMethod": "INBOUND | OUTBOUND | TRANSFER | CALLBACK",
-            "InstanceARN": "arn:aws:connect:aws-region:1234567890:instance/c8c0e68d-2200-4265-82c0-XXXXXXXXXX",
-            "LanguageCode": "en-US",
-            "MediaStreams": {
-                "Customer": {
-                    "Audio": {
-                        "StreamARN": "arn:aws:kinesisvideo::eu-west-2:111111111111:stream/instance-alias-contact-ddddddd-bbbb-dddd-eeee-ffffffffffff/9999999999999",
-                        "StartTimestamp": "1571360125131", // Epoch time value
-                        "StopTimestamp": "1571360126131",
-                        "StartFragmentNumber": "100" // Numberic value for fragment number
-                    }
-                }
-            },
-            "Name": "ContactFlowEvent",
-            "PreviousContactId": "4a573372-1f28-4e26-b97b-XXXXXXXXXXX",
-            "Queue": {
-                   "ARN": "arn:aws:connect:eu-west-2:111111111111:instance/cccccccc-bbbb-dddd-eeee-ffffffffffff/queue/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-                 "Name": "PasswordReset"
-                "OutboundCallerId": {
-                    "Address": "+12345678903",
-                    "Type": "TELEPHONE_NUMBER"
-                }
-            },
-            "References": {
-                "key1": {
-                    "Type": "url",
-                    "Value": "urlvalue"
-                }
-            },
-            "SystemEndpoint": {
-                "Address": "+1234567890",
-                "Type": "TELEPHONE_NUMBER"
-            }
-        },
-        "Parameters": {
-            "ContactId": "<connect-contact-id>",
-            "expression_type": "QUEUE",
-            "id": "arn:aws:sqs:<region>:<account>:queue-new-year-handler",
-            "time_zone": "Asia/Kolkata"
-    }
-    },
-    "Name": "ContactFlowEvent"
-}
-```
+### Required parameters
 
 | Parameter         | Required | Values                  | Description                                           |
 | ----------------- | -------- | ----------------------- | ----------------------------------------------------- |
 | `expression_type` | Yes      | `QUEUE`, `PHONE_NUMBER` | Entity type to look up in DynamoDB                    |
-| `id`              | Yes      | Sort key value          | The `sk` of the queue or phone number item            |
+| `id`              | Yes      | Sort key value          | The `id` of the queue or phone number item            |
 | `time_zone`       | Yes      | IANA tz string          | Timezone for schedule evaluation, e.g. `Asia/Kolkata` |
 | `ContactId`       | No       | UUID                    | Amazon Connect contact ID for log correlation         |
+
+### Full event structure
+
+```json
+{
+  "Details": {
+    "ContactData": {
+      "Attributes": {},
+      "Channel": "VOICE",
+      "ContactId": "4a573372-1f28-4e26-b97b-XXXXXXXXXXX",
+      "CustomerEndpoint": {
+        "Address": "+1234567890",
+        "Type": "TELEPHONE_NUMBER"
+      },
+      "InitiationMethod": "INBOUND",
+      "InstanceARN": "arn:aws:connect:us-west-2:1234567890:instance/c8c0e68d-2200-4265-82c0-XXXXXXXXXX",
+      "Queue": {
+        "ARN": "arn:aws:connect:us-west-2:1234567890:instance/.../queue/...",
+        "Name": "SupportQueue"
+      }
+    },
+    "Parameters": {
+      "ContactId": "4a573372-1f28-4e26-b97b-XXXXXXXXXXX",
+      "expression_type": "QUEUE",
+      "id": "arn:aws:connect:us-west-2:123456789012:instance/.../queue/...",
+      "time_zone": "Asia/Kolkata"
+    }
+  },
+  "Name": "ContactFlowEvent"
+}
+```
 
 ---
 
@@ -438,7 +536,7 @@ The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event
     "Parameters": {
       "ContactId": "test-contact-001",
       "expression_type": "QUEUE",
-      "id": "arn:aws:sqs:us-west-2:123456789012:queue-general-handler",
+      "id": "arn:aws:connect:us-west-2:123456789012:instance/.../queue/general",
       "time_zone": "Asia/Kolkata"
     }
   }
@@ -466,7 +564,7 @@ The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event
     "Parameters": {
       "ContactId": "test-contact-002",
       "expression_type": "QUEUE",
-      "id": "arn:aws:sqs:us-west-2:123456789012:queue-new-year-handler",
+      "id": "arn:aws:connect:us-west-2:123456789012:instance/.../queue/new-year",
       "time_zone": "Asia/Kolkata"
     }
   }
@@ -494,7 +592,7 @@ The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event
     "Parameters": {
       "ContactId": "test-contact-003",
       "expression_type": "QUEUE",
-      "id": "arn:aws:sqs:us-west-2:123456789012:queue-expired-handler",
+      "id": "arn:aws:connect:us-west-2:123456789012:instance/.../queue/expired",
       "time_zone": "Asia/Kolkata"
     }
   }
@@ -513,7 +611,7 @@ The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event
 
 ---
 
-### Scenario 4 — Invalid / missing parameters (validation error)
+### Scenario 4 — Invalid / missing parameters
 
 ```json
 {
@@ -588,7 +686,7 @@ The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event
     "Parameters": {
       "ContactId": "test-contact-006",
       "expression_type": "QUEUE",
-      "id": "arn:aws:sqs:us-west-2:123456789012:queue-general-handler",
+      "id": "arn:aws:connect:us-west-2:123456789012:instance/.../queue/general",
       "time_zone": "Not/ATimezone"
     }
   }
@@ -603,7 +701,7 @@ The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event
   "message": "Invalid event parameters",
   "payload": {
     "expression_type": "QUEUE",
-    "id": "arn:aws:sqs:us-west-2:123456789012:queue-general-handler",
+    "id": "arn:aws:connect:us-west-2:123456789012:instance/.../queue/general",
     "time_zone": "Not/ATimezone",
     "contact_id": "test-contact-006"
   }
@@ -614,7 +712,7 @@ The Lambda receives an Amazon Connect **Invoke AWS Lambda function** block event
 
 ### Testing locally
 
-Invoke the handler directly with a JSON file:
+Invoke the handler directly:
 
 ```bash
 cd src
@@ -622,25 +720,28 @@ python - <<'EOF'
 import json
 from lambda_handler import lambda_handler
 
-with open("../tests/events/scenario_open.json") as f:
-    event = json.load(f)
+event = {
+    "Details": {
+        "ContactData": {"ContactId": "local-test-001"},
+        "Parameters": {
+            "ContactId": "local-test-001",
+            "expression_type": "QUEUE",
+            "id": "arn:aws:connect:us-west-2:123456789012:instance/.../queue/general",
+            "time_zone": "Asia/Kolkata"
+        }
+    }
+}
 
 result = lambda_handler(event, None)
 print(json.dumps(result, indent=2))
 EOF
 ```
 
-Or with the AWS SAM CLI once a `template.yaml` is available:
-
-```bash
-sam local invoke HoursOfOperationFunction --event tests/events/scenario_open.json
-```
-
 ---
 
 ## Development Commands
 
-Run these from inside the `cdk/` directory:
+### CDK (from `cdk/`)
 
 ```bash
 # Install dependencies
@@ -652,11 +753,12 @@ npm run build
 # Watch for changes
 npm run watch
 
-# Run unit tests
+# Run CDK unit tests
 npm run test
 
 # Lint the code
 npm run lint
+npm run lint:fix
 
 # Synthesize CloudFormation template (no deploy)
 npx cdk synth
@@ -670,6 +772,67 @@ npx cdk deploy
 # Destroy the stack (table is RETAINED by default)
 npx cdk destroy
 ```
+
+### Lambda (from repo root)
+
+```bash
+# Install development dependencies
+pip install -r src/requirements.dev..txt
+
+# Run all unit tests
+pytest src/test_unit/ -v
+
+# Run with coverage report
+pytest src/test_unit/ --cov=src/common --cov-report=html
+
+# Build the container image locally
+docker build -t connect-hoo-engine .
+
+# Run the container locally (requires AWS credentials)
+docker run \
+  -e TABLE_NAME=test-hoo-table \
+  -e AWS_REGION=us-west-2 \
+  -e PK_NAME=exp \
+  -e SK_NAME=id \
+  -p 9000:8080 \
+  connect-hoo-engine
+```
+
+---
+
+## Unit Tests
+
+The Pytest suite in [src/test_unit/](src/test_unit/) covers all five modules:
+
+| Test file                    | Module under test         | Approx. tests |
+| ---------------------------- | ------------------------- | ------------- |
+| `test_lambda_handler.py`     | `lambda_handler`          | ~75           |
+| `test_parse_and_validate.py` | `common/parse_and_validate` | ~25          |
+| `test_payload_service.py`    | `common/payload_service`  | ~40           |
+| `test_dynamodb.py`           | `common/dynamodb`         | ~15           |
+| `test_response_builder.py`   | `common/response_builder` | ~12           |
+| **Total**                    |                           | **~167**      |
+
+All external calls (DynamoDB `GetItem`) are mocked via `unittest.mock`. The `conftest.py` fixture resets the DynamoDB singleton before and after each test to prevent state leakage between test cases.
+
+---
+
+## CI / CD
+
+### Active
+
+| Workflow | Trigger | Scope |
+| -------- | ------- | ----- |
+| [CodeQL Advanced](.github/workflows/codeql.yml) | Push to `main`, pull requests, weekly schedule | Python + JavaScript/TypeScript static analysis |
+
+### Planned
+
+| Workflow | Trigger | Description |
+| -------- | ------- | ----------- |
+| Lambda deploy | Push to `main` | Build container, push to ECR, update Lambda |
+| CDK CI | Pull requests | `cdk synth` + Jest unit tests |
+| Lambda CI | Pull requests | Lint, mypy type-check, pytest |
+| Docker CI | Pull requests | Container build + vulnerability scan |
 
 ---
 

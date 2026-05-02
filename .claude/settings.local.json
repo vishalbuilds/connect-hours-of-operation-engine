@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(ls -Path \"e:\\\\connect-hours-of-operation-engine\" | Where-Object {-not $_.Name.StartsWith\\('.'\\)} | Select-Object -Property Name, PSIsContainer)",
+      "PowerShell(Get-ChildItem -Path \"e:\\\\connect-hours-of-operation-engine\" -Force | Where-Object {$_.Name -ne \".venv\" -and $_.Name -ne \".git\"})",
+      "PowerShell(Get-ChildItem -Path \"e:\\\\connect-hours-of-operation-engine\\\\cdk\" -Force | Where-Object {$_.Name -ne \"node_modules\"})"
+    ]
+  }
+}
