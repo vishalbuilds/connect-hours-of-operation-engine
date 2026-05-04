@@ -12,7 +12,7 @@ class ResponseBuilder:
         payload: Optional[dict] = None,
         lambda_status="SUCCESS",
     ) -> dict:
-        return ResponseBuilder._build(status, message, payload)
+        return ResponseBuilder._build(status, message, payload, lambda_status)
 
     @staticmethod
     def error(
@@ -21,7 +21,7 @@ class ResponseBuilder:
         payload: Optional[dict] = None,
         lambda_status="ERROR",
     ) -> dict:
-        return ResponseBuilder._build(status, message, payload)
+        return ResponseBuilder._build(status, message, payload, lambda_status)
 
     @staticmethod
     def _build(
@@ -31,5 +31,5 @@ class ResponseBuilder:
             "lambda_status": lambda_status,
             "status": status,
             "message": message,
-            "payload": payload or {},
+            **payload,
         }
