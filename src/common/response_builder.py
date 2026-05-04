@@ -19,8 +19,4 @@ class ResponseBuilder:
 
     @staticmethod
     def _build(status: Status, message: str, payload: Optional[dict]) -> dict:
-        return {
-            "status": status,
-            "message": message,
-            "payload": payload or {},
-        }
+        return {"status": status, "message": message, **payload}
